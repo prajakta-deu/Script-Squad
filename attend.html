@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Page</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-beta3/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="attend.css">
+    <style>
+        .attendance-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.light-mode {
+    background-color: #f5f5f5;
+    color: #000;
+}
+
+.dark-mode {
+    background-color: #333;
+    color: #fff;
+}
+
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffcc00;
+}
+
+.attendance-form {
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.class-selection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.form-select {
+    width: auto;
+}
+
+.attendance-table {
+    margin-top: 20px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th, .table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+
+.edit-attendance {
+    margin-top: 20px;
+}
+
+.footer {
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.btn-light {
+    background-color: #ffcc00;
+    color: #000;
+}
+
+    </style>
+    </head>
+
+<body class=" attendance-container light-mode">
+    <header class="header">
+        <div class="logo">Smart Campus</div>
+        <button class="btn btn-light" id="themeToggle">Switch to Dark Mode</button>
+    </header>
+
+    <section class="attendance-form">
+        <h2>Mark Attendance</h2>
+        <div class="class-selection d-flex">
+            <select class="form-select me-2" id="departmentSelect">
+                <option value="">Select Department</option>
+                <option value="Computer Science">Computer Science</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Mechanical">Mechanical</option>
+            </select>
+
+            <select class="form-select" id="yearSelect">
+                <option value="">Select Year</option>
+                <option value="1st Year">1st Year</option>
+                <option value="2nd Year">2nd Year</option>
+                <option value="3rd Year">3rd Year</option>
+            </select>
+
+            <button class="btn btn-primary ms-2" id="fetchBtn">Fetch</button>
+        </div>
+
+        <div id="attendanceTable" class="attendance-table mt-3 d-none">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Roll No</th>
+                        <th>Name</th>
+                        <th>2024-09-01</th>
+                        <th>2024-09-02</th>
+                        <th>2024-09-03</th>
+                    </tr>
+                </thead>
+                <tbody id="attendanceBody">
+                    <!-- Attendance rows will be dynamically inserted here -->
+                </tbody>
+            </table>
+        </div>
+
+        <div id="editSection" class="edit-attendance mt-3 d-none">
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <input type="text" placeholder="Roll No" class="form-control" id="rollNoInput">
+                </div>
+                <div class="col-md-4">
+                    <input type="date" class="form-control" id="dateInput">
+                </div>
+                <div class="col-md-4">
+                    <select class="form-select" id="statusSelect">
+                        <option value="">Select Status</option>
+                        <option value="P">Present</option>
+                        <option value="A">Absent</option>
+                    </select>
+                </div>
+            </div>
+            <button class="btn btn-success" id="saveBtn">Save</button>
+        </div>
+    </section>
+
+    <footer class="footer mt-4">
+        <p>© 2024 Smart Campus. All Rights Reserved.</p>
+    </footer>
+
+    <script>// Sample data
+        const students = [
+            { rollNo: "CS101", name: "John Doe", attendanceRecord: { "2024-09-01": "P", "2024-09-02": "A", "2024-09-03": "P" } },
+            { rollNo: "CS102", name: "Jane Smith", attendanceRecord: { "2024-09-01": "P", "2024-09-02": "P", "2024-09-03": "A" } },
+            { rollNo: "CS103", name: "Alice Johnson", attendanceRecord: { "2024-09-01": "A", "2024-09-02": "P", "2024-09-03": "P" } },
+            { rollNo: "CS104", name: "Bob Brown", attendanceRecord: { "2024-09-01": "P", "2024-09-02": "A", "2024-09-03": "A" } },
+        ];
+        
+        // Handle fetch button click
+        document.getElementById('fetchBtn').addEventListener('click', () => {
+            const department = document.getElementById('departmentSelect').value;
+            const year = document.getElementById('yearSelect').value;
+        
+            if (department && year) {
+                const table = document.getElementById('attendanceTable');
+                const tbody = document.getElementById('attendanceBody');
+                tbody.innerHTML = ''; // Clear previous records
+        
+                students.forEach(student => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${student.rollNo}</td>
+                        <td>${student.name}</td>
+                        <td>${student.attendanceRecord["2024-09-01"] || '-'}</td>
+                        <td>${student.attendanceRecord["2024-09-02"] || '-'}</td>
+                        <td>${student.attendanceRecord["2024-09-03"] || '-'}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+        
+                table.classList.remove('d-none');
+            }
+        });
+        
+        // Handle theme toggle
+        document.getElementById('themeToggle').addEventListener('click', () => {
+            const body = document.body;
+            body.classList.toggle('dark-mode');
+            body.classList.toggle('light-mode');
+        
+            const toggleBtn = document.getElementById('themeToggle');
+            toggleBtn.textContent = body.classList.contains('dark-mode') ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+        });
+        </script>
+</body>
+
+</html>

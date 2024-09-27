@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <title>Class Timetable</title>
+</head>
+
+<body>
+    <div class="timetable-container">
+        <header class="header">
+            <div class="logo">Smart Campus</div>
+            <button class="theme-toggle">☀️</button>
+        </header>
+
+        <section class="timetable-form">
+            <h2>Class Timetable</h2>
+            <div class="dropdowns">
+                <select id="department" class="form-select">
+                    <option value="">Select Department</option>
+                    <option value="Computer Science">Computer Science</option>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Mechanical">Mechanical</option>
+                </select>
+
+                <select id="classSelection" class="form-select">
+                    <option value="">Select Class</option>
+                    <option value="FY">FY</option>
+                    <option value="SY">SY</option>
+                    <option value="TY">TY</option>
+                    <option value="Final Year">Final Year</option>
+                </select>
+
+                <select id="division" class="form-select">
+                    <option value="">Select Division</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                </select>
+
+                <button class="button" onclick="generateTimetable()">Generate Timetable</button>
+            </div>
+
+            <div id="timetable" class="timetable-table" style="display: none;">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Day/Period</th>
+                            <th>1</th>
+                            <th>2</th>
+                            <th>3</th>
+                            <th>4</th>
+                            <th>5</th>
+                            <th>6</th>
+                        </tr>
+                    </thead>
+                    <tbody id="timetableBody"></tbody>
+                </table>
+                <button class="button" onclick="editTimetable()">Edit Timetable</button>
+                <button class="button" onclick="saveTimetable()" style="margin-left: 10px;">Save Timetable</button>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>© 2024 Smart Campus. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

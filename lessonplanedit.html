@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="lessonplan.css">
+    <title>Lesson Plan Page</title>
+</head>
+
+<body>
+    <div class="lesson-plan-container light">
+        <header class="header">
+            <div class="logo">Smart Campus</div>
+            <button class="theme-toggle" id="themeToggle">☀️</button>
+        </header>
+
+        <section class="lesson-plan-form">
+            <h2>Create Lesson Plan</h2>
+            <div class="dropdowns">
+                <select id="department" class="form-select">
+                    <option value="">Select Department</option>
+                    <option value="Computer Science">Computer Science</option>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Mechanical">Mechanical</option>
+                </select>
+
+                <select id="year" class="form-select">
+                    <option value="">Select Year</option>
+                    <option value="FY">FY</option>
+                    <option value="SY">SY</option>
+                    <option value="TY">TY</option>
+                    <option value="Final Year">Final Year</option>
+                </select>
+
+                <select id="subject" class="form-select">
+                    <option value="">Select Subject</option>
+                    <option value="Data Structures">Data Structures</option>
+                    <option value="Operating Systems">Operating Systems</option>
+                    <option value="Database Management">Database Management</option>
+                    <option value="Web Development">Web Development</option>
+                </select>
+
+                <button class="button" id="generateBtn">Generate</button>
+            </div>
+
+            <div class="lesson-plan-table" id="lessonPlanTable" style="display: none;">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Sr. No</th>
+                            <th>Topic</th>
+                            <th>Date</th>
+                            <th>Division</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="lessonPlanBody">
+                        <!-- Rows will be generated here -->
+                    </tbody>
+                </table>
+                <div class="button-group">
+                    <button class="button" id="addTopicBtn">Add Topic</button>
+                    <button class="button save-button" id="saveBtn">Save Lesson Plan</button>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>© 2024 Smart Campus. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+    <script src="lessonplan.js"></script>
+</body>
+
+</html>
